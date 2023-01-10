@@ -6,6 +6,7 @@ defmodule RumblWeb.VideoController do
   plug :load_categories when action in [:new, :create, :edit, :update]
 
   def index(conn, _params, current_user) do
+    IO.inspect current_user, label: "Current user del test"
     videos = Multimedia.list_user_videos(current_user)
     render(conn, "index.html", videos: videos)
   end
