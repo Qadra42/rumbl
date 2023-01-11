@@ -1,6 +1,7 @@
 defmodule RumblWeb.Auth do
   import Plug.Conn
   import Phoenix.Controller
+
   alias RumblWeb.Router.Helpers, as: Routes
 
   def init(opts), do: opts
@@ -18,8 +19,6 @@ defmodule RumblWeb.Auth do
       true ->
         assign(conn, :current_user, nil)
     end
-    user = user_id && Rumbl.Accounts.get_user(user_id)
-    assign(conn, :current_user, user)
   end
 
   def login(conn, user) do
@@ -32,6 +31,7 @@ defmodule RumblWeb.Auth do
   def logout(conn) do
     configure_session(conn, drop: true)
   end
+
 
   def authenticate_user(conn, _opts) do
     if conn.assigns.current_user do

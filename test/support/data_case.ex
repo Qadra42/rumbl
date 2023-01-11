@@ -29,7 +29,12 @@ defmodule Rumbl.DataCase do
   end
 
   setup tags do
-    Rumbl.DataCase.setup_sandbox(tags)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Rumbl.Repo)
+
+    unless tags[:async] do
+      Ecto.Adapters.SQL.Sandbox.mode(Rumbl.Repo, {:shared, self()})
+    end
+
     :ok
   end
 
