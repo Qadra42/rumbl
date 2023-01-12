@@ -44,6 +44,10 @@ defmodule Rumbl.Multimedia do
     |> Repo.get!(id)
   end
 
+  def get_video!(id) do
+    Repo.get!(Video, id)
+  end
+
   defp user_videos_query(query, %Accounts.User{id: user_id}) do
     from(v in query, where: v.user_id == ^user_id)
   end
